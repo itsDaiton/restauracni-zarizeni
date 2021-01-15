@@ -1,0 +1,36 @@
+#pane_login {
+    -fx-pref-height: 100;
+    -fx-pref-width: 400;
+    -fx-alignment: center;
+}
+
+.txtFields {
+    -fx-font-size: 15;
+}
+
+.loginIcons {
+    -fx-fit-to-height: 100;
+    -fx-fit-to-width: 100;
+}
+#pane_main {
+    -fx-pref-height: 200;
+    -fx-pref-width: 500;
+    -fx-alignment: center;
+}
+#middleBox {
+    -fx-spacing: 50;
+    -fx-padding: 15px;
+    -fx-alignment: top-center;
+}
+.middleBoxItems {
+    -fx-font-family: Segoe UI;
+    -fx-font-size: 16;
+    -fx-alignment: center;
+    -fx-spacing: 25;
+}
+#middleBoxButtons {
+    -fx-spacing: 15;
+}
+
+
+
