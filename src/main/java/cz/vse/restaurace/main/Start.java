@@ -15,7 +15,7 @@ public class Start extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        stage.setMaximized(true);
+        //stage.setMaximized(true);
 
         FXMLLoader loader = new FXMLLoader();
         InputStream stream = getClass().getClassLoader().getResourceAsStream("screen/scene_main.fxml");
