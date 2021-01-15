@@ -25,7 +25,7 @@ public class Start extends Application {
         stage.setScene(scene);
 
         //Ikona
-        InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/reserved.png");
+        InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/icon.png");
         Image imageIcon = new Image(streamIcon);
         stage.getIcons().add(imageIcon);
 
