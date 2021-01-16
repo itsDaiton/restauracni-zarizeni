@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="pane_main" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.MainController">
+    <top>
+        <VBox fx:id="menu_main">
+            <MenuBar>
+                <menus>
+                    <Menu mnemonicParsing="false" text="Menu">
+                        <items>
+                            <MenuItem fx:id="itemHistory" mnemonicParsing="false" text="Historie"/>
+                            <MenuItem fx:id="itemLogout" mnemonicParsing="false" text="Odhlásit"/>
+                            <MenuItem fx:id="itemTerminate" mnemonicParsing="false" text="Konec"/>
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+        </VBox>
+    </top>
+    <center>
+        <HBox fx:id="middleBox">
+            <VBox styleClass="middleBoxItems">
+                <ComboBox promptText="Volné stoly" prefWidth="200"/>
+                <ComboBox promptText="Stoly na úpravu" prefWidth="200"/>
+            </VBox>
+            <VBox styleClass="middleBoxItems">
+                <Button prefWidth="200">
+                    <text>
+                        Vytvořit objednávku
+                    </text>
+                </Button>
+                <HBox fx:id="middleBoxButtons">
+                    <Button prefWidth="92.5">
+                        <text>
+                            Upravit
+                        </text>
+                    </Button>
+                    <Button prefWidth="92.5">
+                        <text>
+                            Vyřídit
+                        </text>
+                    </Button>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

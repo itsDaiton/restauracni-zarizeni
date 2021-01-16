@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.MainController">
+<BorderPane fx:id="pane_order" stylesheets="styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vse.restaurace.MainController">
+    <top>
+        <Label fx:id="order_text" text="Úprava stolu č. #" BorderPane.alignment="CENTER" />
+    </top>
+    <left>
+        <VBox fx:id="leftBox">
+            <VBox fx:id="leftBoxItems">
+                <ComboBox prefWidth="200" promptText="Jídlo" />
+                <Button prefWidth="200">
+                    <text>
+                        Přidat
+                    </text>
+                </Button>
+                <ComboBox prefWidth="200" promptText="Pití" />
+                <Button prefWidth="200">
+                    <text>
+                        Přidat
+                    </text>
+                </Button>
+            </VBox>
+            <VBox fx:id="orderBox">
+                <Label styleClass="orderText">
+                    <text>
+                        Poznámka
+                    </text>
+                </Label>
+                <VBox fx:id="note_text">
+                    <TextArea editable="true" styleClass="note_info" />
+                    <Button fx:id="btn_addOrder">
+                        <text>
+                            Přidat
+                        </text>
+                    </Button>
+                </VBox>
+            </VBox>
+        </VBox>
+    </left>
+    <right>
+        <VBox fx:id="rightBox">
+            <Label styleClass="orderText">
+                <text>
+                    Informace o objednávce
+                </text>
+            </Label>
+            <TextArea editable="false" prefHeight="520" maxHeight="520" styleClass="note_info" />
+        </VBox>
+    </right>
+    <bottom>
+        <VBox fx:id="bottomBox">
+            <Button>
+                <text>
+                    Potvrdit úpravu objednávky
+                </text>
+            </Button>
+        </VBox>
+    </bottom>
 </BorderPane>

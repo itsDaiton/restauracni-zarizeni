@@ -16,15 +16,16 @@ public class Start extends Application {
     }
 
     public void start(Stage stage) throws Exception {
+        stage.setResizable(false);
+        stage.setTitle("Restaurační zařízení");
 
         FXMLLoader loader = new FXMLLoader();
-        InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_login.fxml");
+        InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_order.fxml");
         Parent root = loader.load(stream);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
-        //Ikona
         InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/icon.png");
         Image imageIcon = new Image(streamIcon);
         stage.getIcons().add(imageIcon);
