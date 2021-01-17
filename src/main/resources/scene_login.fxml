@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="pane_login" stylesheets="styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vse.restaurace.MainController">
+<BorderPane fx:id="pane_login" stylesheets="styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vse.restaurace.Controllers.MainController">
     <bottom>
         <HBox fx:id="buttonBox" BorderPane.alignment="CENTER">
                 <Button mnemonicParsing="false" styleClass="loginBtns" fx:id="btnSwitchRegistration" text="Registrace" />

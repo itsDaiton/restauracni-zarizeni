@@ -5,14 +5,14 @@ import java.util.*;
 public class Order {
 
     private int orderID;
-    private Date date;
+    private String date;
     private Table table;
 
     private Set<Food> listOfFood;
     private Set<Drink> listOfDrinks;
     private String note;
 
-    public Order(int orderID, Date date, Table table) {
+    public Order(int orderID, String date, Table table) {
         this.orderID = orderID;
         this.date = date;
         this.table = table;
@@ -26,7 +26,7 @@ public class Order {
         return orderID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -50,7 +50,7 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

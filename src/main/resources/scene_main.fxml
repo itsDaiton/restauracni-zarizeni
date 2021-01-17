@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="pane_main" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.MainController">
+<BorderPane fx:id="pane_main" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.Controllers.MainController">
     <top>
         <VBox fx:id="menu_main">
             <MenuBar>
@@ -25,11 +25,11 @@
     <center>
         <HBox fx:id="middleBox">
             <VBox styleClass="middleBoxItems">
-                <ComboBox promptText="Volné stoly" prefWidth="200"/>
-                <ComboBox promptText="Stoly na úpravu" prefWidth="200"/>
+                <ComboBox fx:id="tables_available" promptText="Volné stoly" prefWidth="200"/>
+                <ComboBox fx:id="tables_occupied" promptText="Stoly na úpravu" prefWidth="200"/>
             </VBox>
             <VBox styleClass="middleBoxItems">
-                <Button prefWidth="200">
+                <Button fx:id="btn_createOrder" prefWidth="200">
                     <text>
                         Vytvořit objednávku
                     </text>

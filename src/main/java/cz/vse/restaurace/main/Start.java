@@ -1,6 +1,6 @@
 package cz.vse.restaurace.main;
 
-import cz.vse.restaurace.MainController;
+import cz.vse.restaurace.Controllers.MainController;
 import cz.vse.restaurace.model.App;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

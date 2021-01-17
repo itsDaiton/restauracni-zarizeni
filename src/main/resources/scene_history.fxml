@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="pane_history" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.MainController">
+<BorderPane fx:id="pane_history" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.Controllers.MainController">
     <top>
         <Label fx:id="history_text" text="Historie objednávek" BorderPane.alignment="CENTER" />
     </top>
