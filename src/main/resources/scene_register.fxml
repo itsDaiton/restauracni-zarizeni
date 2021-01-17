@@ -7,7 +7,6 @@
     <bottom>
         <HBox fx:id="buttonBox" BorderPane.alignment="CENTER">
             <Button mnemonicParsing="false" styleClass="loginBtns" fx:id="btnRegistrate" text="Registrovat" />
-            <Button mnemonicParsing="false" styleClass="loginBtns" fx:id="btnLoginFromRegistration" text="Přihlásit" />
         </HBox>
     </bottom>
     <center>
