@@ -10,9 +10,11 @@ public class App {
     private List<Table> availableTables;
     private List<Table> occupiedTables;
 
+    private Order currentOrder;
+
     public App() {
-        this.food = new HashSet<>();
-        this.drinks = new HashSet<>();
+        this.food = new HashSet<Food>();
+        this.drinks = new HashSet<Drink>();
         this.availableTables = new ArrayList<>();
         this.occupiedTables = new ArrayList<>();
         createData();
@@ -102,17 +104,34 @@ public class App {
         availableTables.add(table);
     }
 
-    public Table getTableByNumber(Integer number) {
-        if (number != null) {
-            for (Table t : availableTables) {
-                if (t.getTableNumber() == number) {
-                    return t;
+    public Table getTableByNumber(Integer number, String string) {
+            if (number != null) {
+                if (string.equals("occupied")) {
+                    for (Table t : occupiedTables) {
+                        if (t.getTableNumber() == number) {
+                            return t;
+                        }
+                    }
+                }
+                else if (string.equals("available")) {
+                    for (Table t : availableTables) {
+                        if (t.getTableNumber() == number) {
+                            return t;
+                        }
+                    }
+                }
+                else {
+                    return null;
                 }
             }
-        }
-        else {
             return null;
-        }
-        return null;
     }
+    
+        public void setCurrentOrder(Order currentOrder) {
+            this.currentOrder = currentOrder;
+        }
+    
+        public Order getCurrentOrder() {
+            return currentOrder;
+        }
 }

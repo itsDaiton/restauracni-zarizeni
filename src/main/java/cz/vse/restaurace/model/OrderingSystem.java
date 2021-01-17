@@ -24,4 +24,17 @@ public class OrderingSystem {
     public Collection<Order> getOrders() {
         return new HashSet<>(orders);
     }
+
+    public Order getOrderByOrderTable(Table table) {
+        if (table == null) {
+            return null;
+        }
+        for (Order o : orders) {
+            if (o.getTable().equals(table)) {
+                return o;
+            }
+        }
+        return null;
+    }
 }
+

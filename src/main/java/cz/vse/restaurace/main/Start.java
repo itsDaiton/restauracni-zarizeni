@@ -1,5 +1,6 @@
 package cz.vse.restaurace.main;
 
+import cz.vse.restaurace.Controllers.LoginController;
 import cz.vse.restaurace.Controllers.MainController;
 import cz.vse.restaurace.model.App;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ public class Start extends Application {
         stage.setTitle("Restaurační zařízení");
 
         FXMLLoader loader = new FXMLLoader();
-        InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_main.fxml");
+        InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_login.fxml");
         Parent root = loader.load(stream);
 
         Scene scene = new Scene(root);
@@ -31,10 +32,10 @@ public class Start extends Application {
         InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/icon.png");
         Image imageIcon = new Image(streamIcon);
         stage.getIcons().add(imageIcon);
-
-        MainController mainController = loader.getController();
+        
         App app = new App();
-        mainController.init(app);
+        LoginController loginController = loader.getController();
+        loginController.init(app);
 
         stage.show();
     }

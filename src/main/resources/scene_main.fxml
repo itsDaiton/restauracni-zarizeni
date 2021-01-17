@@ -35,12 +35,12 @@
                     </text>
                 </Button>
                 <HBox fx:id="middleBoxButtons">
-                    <Button prefWidth="92.5">
+                    <Button fx:id="btn_editOrder" prefWidth="92.5">
                         <text>
                             Upravit
                         </text>
                     </Button>
-                    <Button prefWidth="92.5">
+                    <Button fx:id="btn_finishOrder" prefWidth="92.5">
                         <text>
                             Vyřídit
                         </text>
