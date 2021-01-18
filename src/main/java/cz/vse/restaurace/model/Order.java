@@ -17,8 +17,8 @@ public class Order {
         this.date = date;
         this.table = table;
 
-        listOfFood = new HashSet<Food>();
-        listOfDrinks = new HashSet<Drink>();
+        listOfFood = new HashSet<>();
+        listOfDrinks = new HashSet<>();
         note = "";
     }
 
@@ -64,13 +64,13 @@ public class Order {
 
     public void addDrink(Drink drink) {
         if (drink != null) {
-            listOfDrinks.add(drink);
+            listOfDrinks.add(new Drink(drink.getName(), drink.getPrice()));
         }
     }
 
     public void addFood(Food food) {
         if (food != null) {
-            listOfFood.add(food);
+            listOfFood.add(new Food(food.getName(),food.getPrice()));
         }
     }
 
@@ -83,25 +83,29 @@ public class Order {
     }
 
     public String getOrderInfo() {
-        String ret = "Číslo objednávky: " + getOrderID() + "\nAktuální datum: " + getDate() + "\nStůl: " + getTable();
+        String ret = "Číslo objednávky: " + getOrderID() + "\nDatum objednávky: " + getDate() + "\nStůl: " + getTable().getTableNumber();
         int price = 0;
 
         if (!listOfFood.isEmpty()) {
             ret += "\nJídlo: ";
 
             for(Food f : listOfFood) {
-                ret += "\n -" + f.getName();
+                ret += "\n - " + f.getName();
                 price += f.getPrice();
             }
         }
 
         if (!listOfDrinks.isEmpty()) {
-            ret += "\nPití: ";
+            ret += "\nNápoje: ";
 
             for (Drink d : listOfDrinks) {
-                ret += "\n -" + d.getName();
+                ret += "\n - " + d.getName();
                 price += d.getPrice();
             }
+        }
+
+        if (getNote() != "") {
+            ret += "\nPoznámka: " + getNote();
         }
 
         if (price > 0) {

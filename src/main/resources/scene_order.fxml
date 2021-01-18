@@ -5,19 +5,19 @@
 
 <BorderPane fx:id="pane_order" stylesheets="styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vse.restaurace.Controllers.OrderController">
     <top>
-        <Label fx:id="order_text" text="Úprava stolu č. #" BorderPane.alignment="CENTER" />
+        <Label fx:id="order_text" text="Úprava objednávky č. #" BorderPane.alignment="CENTER" />
     </top>
     <left>
         <VBox fx:id="leftBox">
             <VBox fx:id="leftBoxItems">
-                <ComboBox prefWidth="200" promptText="Jídlo" />
-                <Button prefWidth="200">
+                <ComboBox fx:id="food_box" prefWidth="200" promptText="Jídlo" />
+                <Button fx:id="btn_addFood" prefWidth="200">
                     <text>
                         Přidat
                     </text>
                 </Button>
-                <ComboBox prefWidth="200" promptText="Pití" />
-                <Button prefWidth="200">
+                <ComboBox fx:id="drinks_box" prefWidth="200" promptText="Nápoje" />
+                <Button fx:id="btn_addDrink" prefWidth="200">
                     <text>
                         Přidat
                     </text>
@@ -30,8 +30,8 @@
                     </text>
                 </Label>
                 <VBox fx:id="note_text">
-                    <TextArea editable="true" styleClass="note_info" />
-                    <Button fx:id="btn_addOrder">
+                    <TextArea fx:id="note_field" editable="true" styleClass="note_info" />
+                    <Button fx:id="btn_addNote">
                         <text>
                             Přidat
                         </text>
@@ -47,7 +47,7 @@
                     Informace o objednávce
                 </text>
             </Label>
-            <TextArea editable="false" prefHeight="520" maxHeight="520" styleClass="note_info" />
+            <TextArea fx:id="order_info" editable="false" prefHeight="520" maxHeight="520" styleClass="note_info" />
         </VBox>
     </right>
     <bottom>

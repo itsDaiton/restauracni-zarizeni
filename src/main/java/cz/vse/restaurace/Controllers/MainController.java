@@ -68,7 +68,7 @@ public class MainController {
 
     public void createOder() {
             Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY HH:MM:SS");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY HH:mm");
             String dateString = dateFormat.format(date);
 
             List<Integer> orderIDs = new ArrayList<Integer>();
@@ -89,6 +89,9 @@ public class MainController {
                     app.occupyTable(currentTable);
                     update();
                 }
+                else {
+                    AlertWindow.displayAlert("Vytváření objednávky","Vyberte prosím volný stůl.");
+                }
             });
     }
 
@@ -102,6 +105,9 @@ public class MainController {
                     os.removeOrder(order);
                     app.freeTable(currentTable);
                     update();
+                }
+                else {
+                    AlertWindow.displayAlert("Vyřízení objednávky","Vyberte prosím upravovaný stůl.");
                 }
             });
         }

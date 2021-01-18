@@ -1,6 +1,8 @@
 package cz.vse.restaurace.model;
 
 import java.util.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class App {
     private User currentUser;
@@ -12,12 +14,28 @@ public class App {
 
     private Order currentOrder;
 
+    private JSONArray usersArray = new JSONArray();
+
     public App() {
         this.food = new HashSet<Food>();
         this.drinks = new HashSet<Drink>();
         this.availableTables = new ArrayList<>();
         this.occupiedTables = new ArrayList<>();
         createData();
+    }
+
+    public void addUser(JSONObject user) {
+        usersArray.add(user);
+    }
+
+    public boolean usersArrayContainsUser(JSONObject user) {
+        boolean ret = false;
+        for(int i = 0; i < usersArray.size(); i++) {
+            if (user.equals(usersArray.get(i))) {
+                ret = true;
+            }
+        }
+        return ret;
     }
     
     public void setCurrentUser(User user) {
@@ -127,11 +145,39 @@ public class App {
             return null;
     }
     
-        public void setCurrentOrder(Order currentOrder) {
-            this.currentOrder = currentOrder;
+    public void setCurrentOrder(Order currentOrder) {
+        this.currentOrder = currentOrder;
+    }
+
+    public Order getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public Food getFoodByName(String string) {
+        if (string != null) {
+            for (Food f : food) {
+                if (f.getName().equals(string)) {
+                    return f;
+                }
+            }
         }
-    
-        public Order getCurrentOrder() {
-            return currentOrder;
+        else {
+            return null;
         }
+        return null;
+    }
+
+    public Drink getDrinkByName(String string) {
+        if (string != null) {
+            for (Drink d : drinks) {
+                if (d.getName().equals(string)) {
+                    return d;
+                }
+            }
+        }
+        else {
+            return null;
+        }
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,31 +30,27 @@ public class RegisterController {
 
     public void openLogin() {
         btnRegistrate.setOnMouseClicked(event -> {
-            FXMLLoader loader = new FXMLLoader();
-            InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_login.fxml");
-            Parent root = null;
-            try {
-                root = loader.load(stream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setTitle("Restaurační zařízení");
-
-            InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/icon.png");
-            Image imageIcon = new Image(streamIcon);
-            stage.getIcons().add(imageIcon);
-
-
-            AlertWindow.displayAlert("Registrace", "Registrace proběhla úspěšně.");
-            LoginController loginController = loader.getController();
-            loginController.init(app);
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-            stage.show();
-        });
+                    if(register()) {
+                        AlertWindow.displayAlert("Registrace", "Registrace proběhla úspěšně.");
+                        ((Node)(event.getSource())).getScene().getWindow().hide();
+                    } else {
+                        AlertWindow.displayAlert("Registrace", "Toto jméno je již obsazené.");
+                    }
+                });
     }
+
+    public boolean register() {
+            boolean ret = false;
+            JSONObject user = new JSONObject();
+            user.put("userName", textUserNameRegister.getText());
+            user.put("userPassword", textPasswordRegister.getText());
+
+            if(app.usersArrayContainsUser(user)) {
+                return ret;
+            } else {
+                app.addUser(user);
+                ret = true;
+            }
+            return ret;
+        }
 }

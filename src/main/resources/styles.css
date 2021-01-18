@@ -119,7 +119,7 @@
     -fx-alignment: center;
     -fx-pref-width: 365;
 }
-#btn_addOrder {
+#btn_addNote {
     -fx-pref-width: 200;
     -fx-font-family: Segoe UI;
     -fx-font-size: 18;
