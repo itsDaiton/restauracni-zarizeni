@@ -1,11 +1,12 @@
 package cz.vse.restaurace.model;
 
 import java.util.*;
+
+import cz.vse.restaurace.persistence.JsonPersistence;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class App {
-    private User currentUser;
 
     private Set<Food> food;
     private Set<Drink> drinks;
@@ -15,17 +16,41 @@ public class App {
     private Order currentOrder;
 
     private JSONArray usersArray = new JSONArray();
+    private JSONArray orderArray = new JSONArray();
+    private JSONObject loggedUser;
 
     public App() {
         this.food = new HashSet<Food>();
         this.drinks = new HashSet<Drink>();
         this.availableTables = new ArrayList<>();
         this.occupiedTables = new ArrayList<>();
+        this.usersArray = JsonPersistence.readLoginData();
         createData();
     }
 
     public void addUser(JSONObject user) {
         usersArray.add(user);
+    }
+
+    public void updateUser(JSONObject newVersion) {
+        //JSONObject newUser = (JSONObject) newVersion.get("user");
+        System.out.println(newVersion);
+        String newUserName = (String) newVersion.get("userName");
+        String newUserPassword = (String) newVersion.get("userPassword");
+
+        JSONObject oldUser;
+        String oldUserName;
+        String oldUserPassword;
+
+        for(int i = 0; i < usersArray.size(); i++) {
+            oldUser = (JSONObject) usersArray.get(i);
+            oldUserName = (String) oldUser.get("userName");
+            oldUserPassword = (String) oldUser.get("userPassword");
+            if ((newUserName.equals(oldUserName)) && (newUserPassword.equals(oldUserPassword))) {
+                ((JSONObject) usersArray.get(i)).replace("user", newVersion);
+            }
+            System.out.println(usersArray.get(i));
+        }
     }
 
     public boolean usersArrayContainsUser(JSONObject user) {
@@ -37,13 +62,22 @@ public class App {
         }
         return ret;
     }
-    
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
+
+    public void setLoggedUser(JSONObject user) {
+        this.loggedUser = user;
     }
-    public User getCurrentUser() {
-        return currentUser;
+
+    public JSONObject getLoggedUser() {
+        return loggedUser;
     }
+
+    public JSONArray getUsers() {
+        return usersArray;
+    }
+
+    public JSONArray getOrders() { return orderArray; }
+
+    public void addOrderToUser(JSONObject order) { orderArray.add(order); }
     
     public void createData() {
             Table t1 = new Table(1);

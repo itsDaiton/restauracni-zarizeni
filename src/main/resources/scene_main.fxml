@@ -9,7 +9,7 @@
 <BorderPane fx:id="pane_main" stylesheets="styles.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.vse.restaurace.Controllers.MainController">
     <top>
         <VBox fx:id="menu_main">
-            <MenuBar>
+            <MenuBar fx:id="menuBar">
                 <menus>
                     <Menu mnemonicParsing="false" text="Menu">
                         <items>

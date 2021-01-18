@@ -2,6 +2,7 @@ package cz.vse.restaurace.Controllers;
 
 import cz.vse.restaurace.AlertWindow;
 import cz.vse.restaurace.model.*;
+import cz.vse.restaurace.persistence.JsonPersistence;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,6 +33,7 @@ public class RegisterController {
         btnRegistrate.setOnMouseClicked(event -> {
                     if(register()) {
                         AlertWindow.displayAlert("Registrace", "Registrace proběhla úspěšně.");
+                        JsonPersistence.write(app.getUsers());
                         ((Node)(event.getSource())).getScene().getWindow().hide();
                     } else {
                         AlertWindow.displayAlert("Registrace", "Toto jméno je již obsazené.");

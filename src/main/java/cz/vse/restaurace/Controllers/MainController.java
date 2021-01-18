@@ -2,6 +2,7 @@ package cz.vse.restaurace.Controllers;
 
 import cz.vse.restaurace.AlertWindow;
 import cz.vse.restaurace.model.*;
+import cz.vse.restaurace.persistence.JsonPersistence;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +33,7 @@ public class MainController {
     public MenuItem itemTerminate;
     public MenuItem itemHistory;
     public MenuItem itemLogout;
+    public MenuBar menuBar;
 
     private App app;
     private OrderingSystem os;
@@ -102,6 +105,7 @@ public class MainController {
 
                 if (currentTable != null) {
                     Order order = os.getOrderByOrderTable(currentTable);
+                    JsonPersistence.writeOrder(app, order);
                     os.removeOrder(order);
                     app.freeTable(currentTable);
                     update();
@@ -152,7 +156,6 @@ public class MainController {
 
                     OrderController orderController = loader.getController();
                     orderController.init(app);
-                    //((Node) (event.getSource())).getScene().getWindow().hide();
                     stage.showAndWait();
             } else {
                     AlertWindow.displayAlert("Pozor!","Musí být vybrán stůl pro úpravu objednávky.");
@@ -211,6 +214,8 @@ public class MainController {
 
 
             AlertWindow.displayAlert("Odhlášení", "Došlo k odhlášení uživatele.\nBudete přesměrováni na přihlašovací obrazovku.");
+            Stage currentStage = (Stage) menuBar.getScene().getWindow();
+            currentStage.hide();
             LoginController loginController = loader.getController();
             loginController.init(app);
             stage.show();

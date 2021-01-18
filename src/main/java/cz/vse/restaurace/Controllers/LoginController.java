@@ -104,6 +104,7 @@ public class LoginController {
 
         if(app.usersArrayContainsUser(user)) {
             ret = true;
+            app.setLoggedUser(user);
         }
         return ret;
     }
