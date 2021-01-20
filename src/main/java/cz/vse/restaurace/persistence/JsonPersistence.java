@@ -1,76 +1,78 @@
 package cz.vse.restaurace.persistence;
 
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
-import cz.vse.restaurace.model.App;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import cz.vse.restaurace.model.Order;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import cz.vse.restaurace.model.User;
 
 public class JsonPersistence {
 
-    public static void write(JSONArray users) {
+    private static final String SAVE_FILE_NAME = "usersdata.json";
 
-        try (FileWriter file = new FileWriter("data.json")) {
+    private Gson gson = new Gson();
 
-            file.write(users.toJSONString());
-            file.flush();
-
+    public List<User> loadData() throws PersistenceException {
+        checkOrCreateFile("usersdata.json");
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(SAVE_FILE_NAME));
+            String jsonRaw = String.join("\n", lines);
+            Type listOfUsersType = new TypeToken<List<User>>() {}.getType();
+            return gson.fromJson(jsonRaw, listOfUsersType);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PersistenceException(e);
         }
-
     }
 
-    public static void writeOrder(App app, Order order) {
-        JSONObject orderDetails = new JSONObject();
-        orderDetails.put("orderID", order.getOrderID());
-        orderDetails.put("orderDate", order.getDate());
-        orderDetails.put("orderTable", order.getTable().getTableNumber());
-        orderDetails.put("orderFood", order.getFoodAsString());
-        orderDetails.put("orderDrink", order.getDrinksAsString());
-        orderDetails.put("orderNote", order.getNote());
-        orderDetails.put("orderPrice", order.calculateTotalPrice());
-
-        JSONObject currentOrder = new JSONObject();
-        currentOrder.put("order", orderDetails);
-
-        app.addOrderToUser(currentOrder);
-
-        app.getLoggedUser().put("orderHistory", app.getOrders());
-
-        app.updateUser(app.getLoggedUser());
-
-        write(app.getUsers());
-    }
-
-    public static JSONArray readLoginData() {
-        JSONParser jsonParser = new JSONParser();
-        JSONArray users = new JSONArray();
-
-        try (FileReader reader = new FileReader("data.json"))
-        {
-            Object obj = jsonParser.parse(reader);
-
-            users = (JSONArray) obj;
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public List<Order> loadUserData(User user) throws PersistenceException {
+        String fileName = user.getUserName() + ".json";
+        checkOrCreateFile(fileName);
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
+            String jsonRaw = String.join("\n", lines);
+            Type listOfUsersOrdersType = new TypeToken<List<Order>>() {}.getType();
+            return gson.fromJson(jsonRaw, listOfUsersOrdersType);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+            throw new PersistenceException(e);
         }
-        return users;
     }
 
-    public static void readAll(JSONObject user) {
+    public void saveUserData(List<Order> orders, User user) throws PersistenceException {
+        String fileName = user.getUserName() + ".json";
+        checkOrCreateFile(fileName);
+        String json = gson.toJson(orders);
+        try {
+            Files.write(Paths.get(fileName), json.getBytes());
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        }
+    }
 
+    public void saveData(List<User> users) throws PersistenceException {
+        checkOrCreateFile("usersdata.json");
+        String json = gson.toJson(users);
+        try {
+            Files.write(Paths.get(SAVE_FILE_NAME), json.getBytes());
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public void checkOrCreateFile(String fileName) throws PersistenceException {
+        File file = new File(fileName);
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new PersistenceException(e);
+            }
+        }
     }
 }

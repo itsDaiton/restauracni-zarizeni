@@ -105,7 +105,7 @@ public class MainController {
 
                 if (currentTable != null) {
                     Order order = os.getOrderByOrderTable(currentTable);
-                    JsonPersistence.writeOrder(app, order);
+                    app.addFinishedOrder(order);
                     os.removeOrder(order);
                     app.freeTable(currentTable);
                     update();

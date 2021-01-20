@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,13 +97,11 @@ public class LoginController {
 
     public boolean login() {
         boolean ret = false;
-        JSONObject user = new JSONObject();
-        user.put("userName", textUserName.getText());
-        user.put("userPassword", textPassword.getText());
+        User user = new User(textUserName.getText(), textPassword.getText());
 
-        if(app.usersArrayContainsUser(user)) {
+        if(app.collectionContainsUser(user)) {
             ret = true;
-            app.setLoggedUser(user);
+            app.setCurrentUser(user);
         }
         return ret;
     }

@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +25,7 @@ public class RegisterController {
 
     public void init(App app) {
         this.app = app;
+
         openLogin();
     }
 
@@ -33,21 +33,21 @@ public class RegisterController {
         btnRegistrate.setOnMouseClicked(event -> {
                     if(register()) {
                         AlertWindow.displayAlert("Registrace", "Registrace proběhla úspěšně.");
-                        JsonPersistence.write(app.getUsers());
                         ((Node)(event.getSource())).getScene().getWindow().hide();
-                    } else {
-                        AlertWindow.displayAlert("Registrace", "Toto jméno je již obsazené.");
                     }
                 });
     }
 
     public boolean register() {
             boolean ret = false;
-            JSONObject user = new JSONObject();
-            user.put("userName", textUserNameRegister.getText());
-            user.put("userPassword", textPasswordRegister.getText());
+            if(textUserNameRegister.getText().equals("") | textPasswordRegister.getText().equals("")) {
+                AlertWindow.displayAlert("Pozor!", "Musíte zadat jméno a heslo účtu!");
+                return ret;
+            }
+            User user = new User(textUserNameRegister.getText(),textPasswordRegister.getText());
 
-            if(app.usersArrayContainsUser(user)) {
+            if(app.collectionContainsUserName(user)) {
+                AlertWindow.displayAlert("Registrace", "Toto jméno je již obsazené.");
                 return ret;
             } else {
                 app.addUser(user);

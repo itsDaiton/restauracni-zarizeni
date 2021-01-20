@@ -1,6 +1,7 @@
 package cz.vse.restaurace.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 
 public class User implements Serializable {
 
@@ -8,8 +9,12 @@ public class User implements Serializable {
 
     private String userName;
     private String password;
-    private Order order;
-    private String history;
+    private Order[] orders;
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 
     public String getUserName() {
         return userName;
@@ -29,17 +34,8 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Order getOrder() {return order; }
-    public void setOrder() {this.order = order; }
-
-    public String getUserHistory() {
-        return history;
-    }
-
-    /*Bude potřeba ???*/public void setUserHistory(String history)
-    {
-        this.history = history;
-    }
+    public Order[] getOrder() {return orders; }
+    public void setOrder() {this.orders = orders; }
 }
 
 
