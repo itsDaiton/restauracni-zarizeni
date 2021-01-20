@@ -1,7 +1,6 @@
 package cz.vse.restaurace.model;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 
 public class User implements Serializable {
 
@@ -9,7 +8,6 @@ public class User implements Serializable {
 
     private String userName;
     private String password;
-    private Order[] orders;
 
     public User(String userName, String password) {
         this.userName = userName;
@@ -33,9 +31,6 @@ public class User implements Serializable {
     {
         this.password = password;
     }
-
-    public Order[] getOrder() {return orders; }
-    public void setOrder() {this.orders = orders; }
 }
 
 

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class JsonPersistence {
     }
 
     public List<Order> loadUserData(User user) throws PersistenceException {
-        String fileName = user.getUserName() + ".json";
+        checkOrCreateDirectory("accountData");
+        String fileName = "accountData\\" + user.getUserName() + ".json";
         checkOrCreateFile(fileName);
         try {
             List<String> lines = Files.readAllLines(Paths.get(fileName));
@@ -45,7 +47,8 @@ public class JsonPersistence {
     }
 
     public void saveUserData(List<Order> orders, User user) throws PersistenceException {
-        String fileName = user.getUserName() + ".json";
+        checkOrCreateDirectory("accountData");
+        String fileName = "accountData\\" + user.getUserName() + ".json";
         checkOrCreateFile(fileName);
         String json = gson.toJson(orders);
         try {
@@ -73,6 +76,17 @@ public class JsonPersistence {
             } catch (IOException e) {
                 throw new PersistenceException(e);
             }
+        }
+    }
+
+    public void checkOrCreateDirectory(String directoryName) throws PersistenceException {
+        Path currentRelativePath = Paths.get("");
+        String path = currentRelativePath.toAbsolutePath().toString();
+        path += "\\" + directoryName;
+
+        File file = new File(path);
+        if(!file.exists()) {
+            file.mkdirs();
         }
     }
 }

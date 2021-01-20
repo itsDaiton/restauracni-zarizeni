@@ -77,6 +77,21 @@ public class App {
         }
     }
 
+    public void loadOrderHistory() {
+        try {
+            finishedOrders = jsonPersistence.loadUserData(currentUser);
+            if(finishedOrders == null) {
+                finishedOrders = new ArrayList<>();
+            }
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Order> getFinishedOrders() {
+        return finishedOrders;
+    }
+
     public void addFinishedOrder(Order order)
     {
         finishedOrders.add(order);

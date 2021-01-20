@@ -86,6 +86,7 @@ public class LoginController {
             if(login()) {
                 MainController mainController = loader.getController();
                 mainController.init(app);
+                app.loadOrderHistory();
                 ((Node)(event.getSource())).getScene().getWindow().hide();
                 stage.show();
             } else {
