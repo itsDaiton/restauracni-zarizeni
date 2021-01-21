@@ -71,7 +71,7 @@ public class MainController {
 
     public void createOder() {
             Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY HH:mm");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
             String dateString = dateFormat.format(date);
 
             List<Integer> orderIDs = new ArrayList<Integer>();
