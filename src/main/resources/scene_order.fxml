@@ -10,14 +10,14 @@
     <left>
         <VBox fx:id="leftBox">
             <VBox fx:id="leftBoxItems">
-                <ComboBox fx:id="food_box" prefWidth="200" promptText="Jídlo" />
-                <Button fx:id="btn_addFood" prefWidth="200">
+                <ComboBox fx:id="food_box" prefWidth="275" promptText="Jídlo" />
+                <Button fx:id="btn_addFood" prefWidth="150">
                     <text>
                         Přidat
                     </text>
                 </Button>
-                <ComboBox fx:id="drinks_box" prefWidth="200" promptText="Nápoje" />
-                <Button fx:id="btn_addDrink" prefWidth="200">
+                <ComboBox fx:id="drinks_box" prefWidth="275" promptText="Nápoje" />
+                <Button fx:id="btn_addDrink" prefWidth="150">
                     <text>
                         Přidat
                     </text>

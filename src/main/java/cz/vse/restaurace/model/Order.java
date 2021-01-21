@@ -8,8 +8,8 @@ public class Order {
     private String date;
     private Table table;
 
-    private Set<Food> listOfFood;
-    private Set<Drink> listOfDrinks;
+    private List<Food> listOfFood;
+    private List<Drink> listOfDrinks;
     private String note;
 
     public Order(int orderID, String date, Table table) {
@@ -17,8 +17,8 @@ public class Order {
         this.date = date;
         this.table = table;
 
-        listOfFood = new HashSet<>();
-        listOfDrinks = new HashSet<>();
+        listOfFood = new ArrayList<>();
+        listOfDrinks = new ArrayList<>();
         note = "";
     }
 
@@ -35,11 +35,11 @@ public class Order {
     }
 
     public Collection<Drink> getListOfDrinks() {
-        return new HashSet<Drink>(listOfDrinks);
+        return new ArrayList<>(listOfDrinks);
     }
 
     public Collection<Food> getListOfFood() {
-        return new HashSet<Food>(listOfFood);
+        return new ArrayList<>(listOfFood);
     }
 
     public String getNote() {
@@ -74,14 +74,6 @@ public class Order {
         }
     }
 
-    public boolean containsDrink(Drink drink) {
-        return listOfDrinks.contains(drink);
-    }
-
-    public boolean containsFood(Food food) {
-        return listOfFood.contains(food);
-    }
-
     public String getOrderInfo() {
             String ret = "Číslo objednávky: " + getOrderID() + "\nDatum objednávky: " + getDate() + "\nStůl: " + getTable().getTableNumber();
 
@@ -110,41 +102,21 @@ public class Order {
             }
 
             return ret;
-        }
-
-    public String getDrinksAsString() {
-        String ret = "";
-        if (!listOfDrinks.isEmpty()) {
-            for (Drink d : listOfDrinks) {
-                ret += d.getName() + ", ";
-            }
-        }
-            return ret;
-    }
-
-    public String getFoodAsString() {
-        String ret = "";
-        if (!listOfFood.isEmpty()) {
-            for (Food f : listOfFood) {
-                 ret += f.getName() + ", ";
-            }
-        }
-        return ret;
     }
 
     public Integer calculateTotalPrice() {
-            int totalPrice = 0;
-            if (!listOfDrinks.isEmpty()) {
-                for (Drink d : listOfDrinks) {
-                    totalPrice += d.getPrice();
-                }
+        int totalPrice = 0;
+        if (!listOfDrinks.isEmpty()) {
+            for (Drink d : listOfDrinks) {
+                totalPrice += d.getPrice();
             }
-            if (!listOfFood.isEmpty()) {
-                for (Food f : listOfFood) {
-                    totalPrice += f.getPrice();
-                }
-            }
-            return totalPrice;
         }
+        if (!listOfFood.isEmpty()) {
+            for (Food f : listOfFood) {
+                totalPrice += f.getPrice();
+            }
+        }
+        return totalPrice;
+    }
 
 }

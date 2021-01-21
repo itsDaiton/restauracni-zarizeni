@@ -7,12 +7,13 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import cz.vse.restaurace.model.Order;
-import cz.vse.restaurace.model.User;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+import cz.vse.restaurace.model.*;
+import javafx.scene.control.Tab;
 
 public class JsonPersistence {
 
@@ -41,6 +42,48 @@ public class JsonPersistence {
             String jsonRaw = String.join("\n", lines);
             Type listOfUsersOrdersType = new TypeToken<List<Order>>() {}.getType();
             return gson.fromJson(jsonRaw, listOfUsersOrdersType);
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public List<Food> loadFoodData()  throws PersistenceException {
+        checkOrCreateDirectory("appData");
+        String fileName = "appData\\" + "food.json";
+        checkOrCreateFile(fileName);
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
+            String jsonRaw = String.join("\n", lines);
+            Type listOfFood = new TypeToken<List<Food>>() {}.getType();
+            return gson.fromJson(jsonRaw, listOfFood);
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public List<Drink> loadDrinksData()  throws PersistenceException {
+        checkOrCreateDirectory("appData");
+        String fileName = "appData\\" + "drinks.json";
+        checkOrCreateFile(fileName);
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
+            String jsonRaw = String.join("\n", lines);
+            Type listOfDrinks = new TypeToken<List<Drink>>() {}.getType();
+            return gson.fromJson(jsonRaw, listOfDrinks);
+        } catch (IOException e) {
+            throw new PersistenceException(e);
+        }
+    }
+
+    public List<Table> loadTableData() throws PersistenceException {
+        checkOrCreateFile("appData");
+        String fileName = "appData\\" + "tables.json";
+        checkOrCreateFile(fileName);
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName));
+            String jsonRaw = String.join("\n", lines);
+            Type listOfTables = new TypeToken<List<Table>>() {}.getType();
+            return gson.fromJson(jsonRaw, listOfTables);
         } catch (IOException e) {
             throw new PersistenceException(e);
         }

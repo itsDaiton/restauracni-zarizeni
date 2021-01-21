@@ -7,8 +7,8 @@ import cz.vse.restaurace.persistence.PersistenceException;
 
 public class App {
 
-    private Set<Food> food;
-    private Set<Drink> drinks;
+    private List<Food> food;
+    private List<Drink> drinks;
     private List<Table> availableTables;
     private List<Table> occupiedTables;
 
@@ -22,15 +22,14 @@ public class App {
     private JsonPersistence jsonPersistence;
 
     public App() {
-        this.food = new HashSet<Food>();
-        this.drinks = new HashSet<Drink>();
+        this.food = new ArrayList<>();
+        this.drinks = new ArrayList<>();
         this.availableTables = new ArrayList<>();
         this.occupiedTables = new ArrayList<>();
         this.jsonPersistence = new JsonPersistence();
         this.finishedOrders = new ArrayList<>();
-
         fillUsersList();
-        createData();
+        loadAppData();
     }
 
     public void addUser(User user) {
@@ -109,55 +108,25 @@ public class App {
     public User getCurrentUser() {
         return currentUser;
     }
-    
-    public void createData() {
-            Table t1 = new Table(1);
-            Table t2 = new Table(2);
-            Table t3 = new Table(3);
-            Table t4 = new Table(4);
-            Table t5 = new Table(5);
-            Table t6 = new Table(6);
-            Table t7 = new Table(7);
-            Table t8 = new Table(8);
-            
-            Drink d1 = new Drink("Kofola",25);
-            Drink d2 = new Drink("Fanta", 35);
-            Drink d3 = new Drink("Sprite", 40);
-    
-            Food f1 = new Food("BigMac", 85);
-            Food f2 = new Food("Kuřecí Řízek", 125);
-            Food f3 = new Food("Hovězí steak", 150);
 
-            createDatabase(t1);
-            createDatabase(t2);
-            createDatabase(t3);
-            createDatabase(t4);
-            createDatabase(t5);
-            createDatabase(t6);
-            createDatabase(t7);
-            createDatabase(t8);
+    public void loadAppData() {
+        try {
+            food = jsonPersistence.loadFoodData();
+            drinks = jsonPersistence.loadDrinksData();
+            availableTables = jsonPersistence.loadTableData();
 
-            createDatabase(d1);
-            createDatabase(d2);
-            createDatabase(d3);
+            if (food == null) {
+                food = new ArrayList<>();
+            }
+            if (drinks == null) {
+                drinks = new ArrayList<>();
+            }
+            if (availableTables == null) {
+                availableTables = new ArrayList<>();
+            }
 
-            createDatabase(f1);
-            createDatabase(f2);
-            createDatabase(f3);
-    }
-
-    public void createDatabase(Object o) {
-        if (o instanceof Table) {
-            Table table = (Table)o;
-            availableTables.add(table);
-        }
-        else if (o instanceof Drink) {
-            Drink drink = (Drink)o;
-            drinks.add(drink);
-        }
-        else {
-            Food f = (Food)o;
-            food.add(f);
+        } catch (PersistenceException e) {
+            e.printStackTrace();
         }
     }
 
