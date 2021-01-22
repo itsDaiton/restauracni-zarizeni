@@ -140,6 +140,14 @@
     -fx-alignment: top-center;
     -fx-padding: 25 25 25 10;
 }
+#addFoodLabel {
+    -fx-font-family: Segoe UI;
+    -fx-font-size: 28;
+}
+#addDrinkLabel {
+    -fx-font-family: Segoe UI;
+    -fx-font-size: 28;
+}
 
 
 

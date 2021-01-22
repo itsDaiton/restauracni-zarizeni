@@ -33,6 +33,7 @@ public class MainController {
     public MenuItem itemTerminate;
     public MenuItem itemHistory;
     public MenuItem itemLogout;
+    public MenuItem addMenuItem;
     public MenuBar menuBar;
 
     private App app;
@@ -48,6 +49,7 @@ public class MainController {
         showHistory();
         closeApp();
         logout();
+        addMenuItems();
     }
 
     public void update() {
@@ -219,6 +221,33 @@ public class MainController {
             LoginController loginController = loader.getController();
             loginController.init(app);
             stage.show();
+        });
+    }
+
+    public void addMenuItems() {
+        addMenuItem.setOnAction(event -> {
+            FXMLLoader loader = new FXMLLoader();
+            InputStream stream = getClass().getClassLoader().getResourceAsStream("scene_add_menu_item.fxml");
+            Parent root = null;
+            try {
+                root = loader.load(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Přidání položek do menu");
+
+            InputStream streamIcon = getClass().getClassLoader().getResourceAsStream("img/icon.png");
+            Image imageIcon = new Image(streamIcon);
+            stage.getIcons().add(imageIcon);
+
+            AddItemController addItemController = loader.getController();
+            addItemController.init(app);
+            stage.showAndWait();
         });
     }
 
