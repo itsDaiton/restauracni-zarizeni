@@ -15,6 +15,7 @@
                         <items>
                             <MenuItem fx:id="itemHistory" mnemonicParsing="false" text="Historie"/>
                             <MenuItem fx:id="itemLogout" mnemonicParsing="false" text="Odhlásit"/>
+                            <MenuItem fx:id="addMenuItem" mnemonicParsing="false" text="Přidat jídlo/nápoj"/>
                             <MenuItem fx:id="itemTerminate" mnemonicParsing="false" text="Konec"/>
                         </items>
                     </Menu>

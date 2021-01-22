@@ -72,8 +72,8 @@
     "price": 110
   },
   {
-    "name": "Americké brambory",
-    "price": 55
+    "name": "Pečené brambory",
+    "price": 60
   },
   {
     "name": "Lasagne",
@@ -88,11 +88,15 @@
     "price": 120
   },
   {
-    "name": "Steak",
+    "name": "Vepřový řízek",
     "price": 150
   },
   {
     "name": "Losos se smaragdovou omáčkou",
     "price": 180
+  },
+  {
+    "name": "Guláš",
+    "price": 150
   }
 ]
