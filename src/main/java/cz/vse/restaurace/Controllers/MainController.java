@@ -223,6 +223,10 @@ public class MainController {
         });
     }
 
+    /**
+     * Metoda slouží k otevření nové scény, určené pro přidávání položek do menu.
+     * Metoda inicializuje ovladač fxml scény a přeposílá mu momentální stav aplikace (app).
+     */
     public void addMenuItems() {
         addMenuItem.setOnAction(event -> {
             FXMLLoader loader = new FXMLLoader();
