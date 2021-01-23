@@ -2,23 +2,23 @@ package cz.vse.restaurace.Controllers;
 
 import cz.vse.restaurace.AlertWindow;
 import cz.vse.restaurace.model.*;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 
+/**
+ * Třída slouží pro ovládání hlavního okna aplikace pro řízení objednávek,
+ * zobrazení historie, přidání sortimentu nebo odhlášení.
+ * Spolupracuje s fxml souborem scene_main.fxml.
+ *
+ * @author Jonáš Matějka
+ * @author David Poslušný
+ * @version ZS 2020
+ */
 public class OrderController {
 
     public Button btn_confirmOrder;
@@ -32,12 +32,16 @@ public class OrderController {
     public TextArea note_field;
 
     private App app;
-    private OrderingSystem os;
     private Order o;
 
+   /**
+     * Metoda init slouží pro načítání aktuálního stavu aplikace do této
+     * třídy, abychom mohli pracovat s aktuálními informacemi aplikace.
+     *
+     * @param app instance třídy App, prezentující aplikaci
+     */
     public void init(App app) {
         this.app = app;
-        this.os = new OrderingSystem();
         this.o = app.getCurrentOrder();
         showOrderID();
         confirmOrder();
@@ -47,21 +51,35 @@ public class OrderController {
         addNote();
     }
 
+    /**
+     * Metoda slouží pro potvrzení úpravy objednávky v tom smyslu, že
+     * se zavře oknu, ve kterém se objednávka upravuje.
+     */
     public void confirmOrder() {
         btn_confirmOrder.setOnMouseClicked(event -> {
             ((Node) (event.getSource())).getScene().getWindow().hide();
         });
     }
 
+    /**
+     * Metoda update volá ostatní aktualizační metody a vyplňuje textovou oblast order_info s aktuálními informacemi o objednávce.
+     */
     public void update() {
             order_info.setText(o.getOrderInfo());
             updateFoodAndDrinks();
     }
 
+    /**
+     * Metoda showOrderID přidá k nadpisu objednávky order_text aktuální číslo objednávky.
+     */
     public void showOrderID() {
         order_text.setText(order_text.getText() + o.getOrderID());
     }
 
+    /**
+     * Metoda updateFoodAndDrinks se stará o aktualizaci comboBoxů, které se využívají pro s jídlem a nápoji.
+     * Do comboBoxů se načítají data z třídy App, kde je uložena aktuální databáze jídel a nápojů.
+     */
     public void updateFoodAndDrinks() {
         Collection<Food> listOfFood = app.getFood();
         food_box.getItems().clear();
@@ -78,6 +96,11 @@ public class OrderController {
         }
     }
 
+    /**
+     * Metoda addFood slouží pro přidání jídla do aktuální upravované objednávky.
+     * Po stisknutí tlačítka se zkontroluje, jestli bylo v comboBoxu něco vybráno.
+     * V případě, že ano, tak se jídlo přidá do datové struktury a zavolá se metoda update.
+     */
     public void addFood() {
         btn_addFood.setOnMouseClicked(event -> {
             String s  = String.valueOf(food_box.getValue());
@@ -93,6 +116,11 @@ public class OrderController {
         });
     }
 
+    /**
+     * Metoda addDrink slouží pro přidání nápojů do aktuální upravované objednávky.
+     * Po stisknutí tlačítka se zkontroluje, jestli bylo v comboBoxu něco vybráno.
+     * V případě, že ano, tak se nápoj přidá do datové struktury a zavolá se metoda update.
+     */
     public void addDrinks() {
         btn_addDrink.setOnMouseClicked(event -> {
             String s = String.valueOf(drinks_box.getValue());
@@ -108,6 +136,11 @@ public class OrderController {
         });
     }
 
+    /**
+     * Metoda addNote se stará o úpravu poznámky.
+     * Po stisknutí tlačítka se zkontroluje, jesli se v textové oblasti nachází nějaký text.
+     * Pokud ano, tak se zavolá metoda ze třídy Order, která nám vymění text poznámky za text uvedený v textové oblasti.
+     */
     public void addNote() {
         btn_addNote.setOnMouseClicked(event -> {
             String s = note_field.getText();

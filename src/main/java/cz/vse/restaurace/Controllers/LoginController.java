@@ -16,6 +16,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Třída slouží pro ovládání okna pro přihlášení do aplikace a
+ * také samotné přihlášení do aplikace provádí.
+ * Spolupracuje s fxml souborem scene_login.fxml.
+ *
+ * @author Jonáš Matějka
+ * @version ZS 2020
+ */
 public class LoginController {
 
     public Button btnOpenRegistration;
@@ -25,16 +33,24 @@ public class LoginController {
 
     private App app;
 
+    /**
+     * Metoda init slouží pro načítání aktuálního stavu aplikace do této
+     * třídy, abychom mohli pracovat s aktuálními informacemi aplikace.
+     *
+     * @param app instance třídy App, prezentující aplikaci
+     */
     public void init(App app) {
         this.app = app;
-        update();
-    }
-
-    public void update() {
         openRegister();
         openMain();
     }
 
+    /**
+     * Tato metoda slouží pro otevření okna pro registraci. Metoda je přiřazuje tlačítku Registrace vytvoření
+     * nového okna a načtení scene_register.fxml souboru. Metoda také přiřazuje oknu ikonu a posílá do třídy
+     * RegisterController aktuální stav aplikace v podobě
+     * instace třídy app.
+     */
     public void openRegister() {
         btnOpenRegistration.setOnMouseClicked(event -> {
             FXMLLoader loader = new FXMLLoader();
@@ -63,6 +79,11 @@ public class LoginController {
         });
     }
 
+    /**
+     * Metoda slouží pro otevření hlavního okna aplikace načteného z scene_main.fxml souboru.
+     * Metoda také kontroluje, zda se šlo uživateli úspěšně přihlásit. Pokud ne tak
+     * místo hlavního okna se otevře chybová hláška.
+     */
     public void openMain() {
         btnLogin.setOnMouseClicked(event -> {
             FXMLLoader loader = new FXMLLoader();
@@ -96,6 +117,13 @@ public class LoginController {
         });
     }
 
+    /**
+     * Metoda sloužící pro přihlášení uživatele do aplikace. Na základě přihlašovacích údajů
+     * metoda zjistí, zda je tento uživatel zaregistrovaný a pokud ano, tak uživatele přihlásí
+     * a vrátí hodnotu true.
+     *
+     * @return skutečnost, zda se přihlášení povedlo, či nikoli
+     */
     public boolean login() {
         boolean ret = false;
         User user = new User(textUserName.getText(), textPassword.getText());

@@ -14,8 +14,24 @@ import javafx.stage.Stage;
 import java.io.InputStream;
 import java.lang.invoke.LambdaConversionException;
 
+/**
+ * Tato třída slouží pro vyskakovací a upozorňovací okénko,
+ * které naše aplikace využívá při některých situací.
+ * Například když se hráč špatně přihlásí, vyskočí mu okno s
+ * upozorněním, že zadal špatné jméno nebo heslo.
+ *
+ * @author Jonáš Matějka
+ * @version ZS 2020
+ */
 public class AlertWindow {
 
+    /**
+     * Jediná metoda v této třídě, která provádí samotné zobrazení vyskakovacího okna.
+     * Do metody se pošle string title, který je titulkem vyskakovacího okna a
+     * další parametr message slouží pro napsání zprávy, kterou okno bude obsahovat.
+     * @param title
+     * @param message
+     */
     public static void displayAlert(String title, String message) {
         Stage stage = new Stage();
 

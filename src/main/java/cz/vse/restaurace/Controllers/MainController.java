@@ -2,10 +2,8 @@ package cz.vse.restaurace.Controllers;
 
 import cz.vse.restaurace.AlertWindow;
 import cz.vse.restaurace.model.*;
-import cz.vse.restaurace.persistence.JsonPersistence;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,6 +21,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.*;
 
+/**
+ * Třída slouží pro ovládání hlavního okna aplikace pro řízení objednávek,
+ * zobrazení historie, přidání sortimentu nebo odhlášení.
+ * Spolupracuje s fxml souborem scene_main.fxml.
+ *
+ * @author Jonáš Matějka
+ * @author David Poslušný
+ * @author Leon Grytsak
+ * @version ZS 2020
+ */
 public class MainController {
     public ComboBox tables_available;
     public ComboBox tables_occupied;
@@ -38,10 +46,16 @@ public class MainController {
     private App app;
     private OrderingSystem os;
 
+    /**
+     * Metoda init slouží pro načítání aktuálního stavu aplikace do této
+     * třídy, abychom mohli pracovat s aktuálními informacemi aplikace.
+     *
+     * @param app instance třídy App, prezentující aplikaci
+     */
     public void init(App app) {
         this.app = app;
         this.os = new OrderingSystem();
-        update();
+        updateTables();
         createOder();
         finishOrder();
         editOrder();
@@ -51,10 +65,10 @@ public class MainController {
         addMenuItems();
     }
 
-    public void update() {
-        updateTables();
-    }
-
+    /**
+     * Metoda updateTables se stará o aktualizaci comboBoxů, které se využívají pro práci se stoly.
+     * Do comboBoxů se načítají data z třídy App, kde jsou uloženy aktuální obsazené a volné stoly.
+     */
     public void updateTables() {
         Collection<Table> availableTables = app.getAvailableTables();
         Collection<Table> occupiedTables = app.getOccupiedTables();
@@ -70,12 +84,20 @@ public class MainController {
         }
     }
 
+    /**
+     * Metoda createOrder slouží pro vytvoření objednávky.
+     * Datum spuštění aplikace je datum objednávky, tj. aktuální datum.
+     * Číslo objednávky se určí tak, že se vybere jedna hodnota z listu čísel od 1-1000 (čísla jsou zamíchána).
+     * Po kliknutí na tlačítko se zkontroluje, jestli hodnota v comboBoxu není null a poté se již vytvoří objednávka.
+     * Objednávka se přidá do systému a vybraný stůl se nastaví jako obsazený.
+     * Zavolá se také metoda updateTables, aby již nebylo možné vybírat stůl, který je obsazený.
+     */
     public void createOder() {
             Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = dateFormat.format(date);
 
-            List<Integer> orderIDs = new ArrayList<Integer>();
+            List<Integer> orderIDs = new ArrayList<>();
             for (int i = 0; i < 1000; i++) {
                 orderIDs.add(i);
             }
@@ -91,7 +113,7 @@ public class MainController {
                     Order order = new Order(orderID, dateString, currentTable);
                     os.addOrder(order);
                     app.occupyTable(currentTable);
-                    update();
+                    updateTables();
                 }
                 else {
                     AlertWindow.displayAlert("Vytváření objednávky","Vyberte prosím volný stůl.");
@@ -99,6 +121,12 @@ public class MainController {
             });
     }
 
+    /**
+     * Metoda finishOrder vyřizuje objednávky.
+     * Po kliknutí na tlačítko se opět zkontroluje, jestli byl nějaký obsazený stůl vybrán.
+     * V případě, že ano, objednávka se vyřídí. Přídá se tedy do vyřízených objednávek a odstraní se ze systému.
+     * Konkrétní stůl se opět uvolní a zavolá se metoda updateTables.
+     */
     public void finishOrder() {
             btn_finishOrder.setOnMouseClicked(event -> {
                 Integer tableNumber = getCurrentTableNumber(tables_occupied);
@@ -109,7 +137,7 @@ public class MainController {
                     app.addFinishedOrder(order);
                     os.removeOrder(order);
                     app.freeTable(currentTable);
-                    update();
+                    updateTables();
                 }
                 else {
                     AlertWindow.displayAlert("Vyřízení objednávky","Vyberte prosím upravovaný stůl.");
@@ -127,6 +155,12 @@ public class MainController {
         });
     }
 
+    /**
+     * Metoda slouží pro vytvoření a zobrazení okna pro úpravu objednávky.
+     * Metoda ošetřuje, aby v combo boxu byl vybrán stůl s aktivní objednávkou,
+     * jinak nelze objednávku upravit.
+     * Okno pro úpravu objednávky je vytvářeno pomocí scene_order.fxml souboru.
+     */
     public void  editOrder() {
             btn_editOrder.setOnMouseClicked(event -> {
                 Integer tableNumber = getCurrentTableNumber(tables_occupied);
@@ -164,6 +198,10 @@ public class MainController {
         });
     }
 
+    /**
+     * Metoda, která slouží pro otevření okna historie objednávek, která je
+     * zobrazována pomocí scene_history.fxml souboru.
+     */
     public void  showHistory() {
         itemHistory.setOnAction(event -> {
             FXMLLoader loader = new FXMLLoader();
@@ -192,6 +230,11 @@ public class MainController {
         });
     }
 
+    /**
+     * Metoda, která slouží pro odhlášení uživatele z aplikace, tak že
+     * uživatele přemístí opět na oknu přihlášení.
+     * Pro zobrazení okna příhlášení se využije soubor scene_login.fxml.
+     */
     public void logout() {
         itemLogout.setOnAction(event -> {
             FXMLLoader loader = new FXMLLoader();
@@ -254,6 +297,13 @@ public class MainController {
         });
     }
 
+    /**
+     * Metoda getCurrentTableNumber je pomocná metoda, která vrací aktuální vybranou položku v comboBoxu, který byl předán v parametru.
+     * V případě comboBoxů, které pracují se stoly, je aktuální vybraná položka číslo daného stolu.
+     *
+     * @param comboBox comboBox, z kterého chceme získat aktuální hodnotu
+     * @return Aktuální vybraná položka z comboBoxu
+     */
     private Integer getCurrentTableNumber(ComboBox comboBox) {
         return (Integer) comboBox.getValue();
     }
