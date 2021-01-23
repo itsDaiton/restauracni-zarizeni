@@ -307,8 +307,8 @@ public class App {
      * Metoda getFoodByName vrací jídlo podle jeho jména.
      * V případě, že se zadaný parametr rovná vlastnosti daného jídla, poté se jídlo pošle na výstup.
      *
-     * @param string
-     * @return
+     * @param string Jméno jídla
+     * @return Jídlo, které získáme podle jeho jména
      */
     public Food getFoodByName(String string) {
         if (string != null) {
@@ -328,8 +328,8 @@ public class App {
      * Metoda getDrinkByName vrací nápoj podle jeho jména.
      * V případě, že se zadaný parametr rovná vlastnosti daného nápoje, poté se nápoj pošle na výstup.
      *
-     * @param string
-     * @return
+     * @param string Jméno nápoje
+     * @return Nápoj, který zíksáme podle jeho jména
      */
     public Drink getDrinkByName(String string) {
         if (string != null) {

@@ -1,0 +1,32 @@
+[
+  {
+    "orderID": 1,
+    "date": "20/01/2021",
+    "table": {
+      "tableNumber": 1
+    },
+    "listOfFood": [],
+    "listOfDrinks": [],
+    "note": ""
+  },
+  {
+    "orderID": 2,
+    "date": "20/01/2021",
+    "table": {
+      "tableNumber": 2
+    },
+    "listOfFood": [],
+    "listOfDrinks": [],
+    "note": ""
+  },
+  {
+    "orderID": 3,
+    "date": "20/01/2021",
+    "table": {
+      "tableNumber": 3
+    },
+    "listOfFood": [],
+    "listOfDrinks": [],
+    "note": ""
+  }
+]

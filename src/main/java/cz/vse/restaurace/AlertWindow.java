@@ -29,8 +29,8 @@ public class AlertWindow {
      * Jediná metoda v této třídě, která provádí samotné zobrazení vyskakovacího okna.
      * Do metody se pošle string title, který je titulkem vyskakovacího okna a
      * další parametr message slouží pro napsání zprávy, kterou okno bude obsahovat.
-     * @param title
-     * @param message
+     * @param title String, který bude sloužit jako titulek okna
+     * @param message String, který bude sloužit jako zpráva, kterou okno bude ukazovat
      */
     public static void displayAlert(String title, String message) {
         Stage stage = new Stage();

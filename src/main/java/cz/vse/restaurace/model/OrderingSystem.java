@@ -25,22 +25,26 @@ public class OrderingSystem {
      * Metoda addOrder po kontrole, jestli parametr není null, přidá objednávku do systému.
      *
      * @param order Objednávka, která se přidá do systému
+     * @return Skutečnost, jestli byla objednávka přidána
      */
-    public void addOrder(Order order) {
+    public boolean addOrder(Order order) {
         if (order != null) {
-            orders.add(order);
+            return orders.add(order);
         }
+        return false;
     }
 
     /**
      * Metoda removeOrder po kontrole, jestli parametr není null, odstraní objednávku ze systému.
      *
      * @param order Objednávka, která se vymaže ze systémů
+     * @return Skutečnost, jestli byla objednávka odstraněna
      */
-    public void removeOrder(Order order) {
+    public boolean removeOrder(Order order) {
         if (order != null) {
-            orders.remove(order);
+            return orders.remove(order);
         }
+        return false;
     }
 
     /**

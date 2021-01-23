@@ -1,1 +1,26 @@
-[{"orderID":327,"date":"20/01/2021 22:00","table":{"tableNumber":6},"listOfFood":[{"name":"Kuřecí Řízek","price":125}],"listOfDrinks":[{"name":"Fanta","price":35},{"name":"Fanta","price":35}],"note":""}]
+[
+  {
+    "orderID": 327,
+    "date": "20/01/2021 22:00",
+    "table": {
+      "tableNumber": 6
+    },
+    "listOfFood": [
+      {
+        "name": "Kuřecí Řízek",
+        "price": 125
+      }
+    ],
+    "listOfDrinks": [
+      {
+        "name": "Fanta",
+        "price": 35
+      },
+      {
+        "name": "Fanta",
+        "price": 35
+      }
+    ],
+    "note": ""
+  }
+]

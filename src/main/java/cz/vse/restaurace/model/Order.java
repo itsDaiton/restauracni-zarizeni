@@ -92,11 +92,13 @@ public class Order {
      * Vytváření nové instance třídy Drink nám zajištujě, že lze mít v objednávce více stejných nápojů (například 2 x Pivo)
      *
      * @param drink Nápoj, který chceme k objednávce přidat
+     * @return Skutečnost, jestli byl nápoj přidán
      */
-    public void addDrink(Drink drink) {
+    public boolean addDrink(Drink drink) {
         if (drink != null) {
-            listOfDrinks.add(new Drink(drink.getName(), drink.getPrice()));
+            return listOfDrinks.add(new Drink(drink.getName(), drink.getPrice()));
         }
+        return false;
     }
 
     /**
@@ -105,11 +107,13 @@ public class Order {
      * Vytváření nové instance zde má stejný účel jako u metody addDrink.
      *
      * @param food Jídlo, které chceme k objednávce přidat
+     * @return Skutečnost, jestli bylo jídlo přídáno
      */
-    public void addFood(Food food) {
+    public boolean addFood(Food food) {
         if (food != null) {
-            listOfFood.add(new Food(food.getName(),food.getPrice()));
+            return listOfFood.add(new Food(food.getName(),food.getPrice()));
         }
+        return false;
     }
 
     /**
