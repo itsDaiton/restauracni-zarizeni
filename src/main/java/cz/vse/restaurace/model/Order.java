@@ -171,4 +171,22 @@ public class Order {
         }
         return totalPrice;
     }
+
+    /**
+     * Metoda getFood vrací kolekci jídla, které se nachází v aktuální objednávce.
+     *
+     * @return Jídlo v objednávce
+     */
+    public Collection<Food> getFood() {
+        return Collections.unmodifiableCollection(listOfFood);
+    }
+
+    /**
+     * Metoda getDrinks vrací kolekci nápojů, které se nachází v aktuální objednávce.
+     *
+     * @return Nápoje v objednávce
+     */
+    public Collection<Drink> getDrinks() {
+        return Collections.unmodifiableCollection(listOfDrinks);
+    }
 }

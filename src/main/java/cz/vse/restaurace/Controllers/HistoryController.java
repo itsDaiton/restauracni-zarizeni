@@ -1,5 +1,6 @@
 package cz.vse.restaurace.Controllers;
 
+import cz.vse.restaurace.AlertWindow;
 import cz.vse.restaurace.model.App;
 import cz.vse.restaurace.model.Order;
 import javafx.scene.Node;
@@ -42,6 +43,9 @@ public class HistoryController {
             history += (item.getOrderInfo() + "\n************************************************************************\n");
         }
         order_info.setText(history);
+        if(order_info.getText().equals("")) {
+            AlertWindow.displayAlert("Prázdná historie.","Uživatel v miulosti nevyřídil žádnou objednávku!");
+        }
     }
 
     /**

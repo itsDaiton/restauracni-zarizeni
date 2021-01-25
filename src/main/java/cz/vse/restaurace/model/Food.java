@@ -6,7 +6,7 @@ package cz.vse.restaurace.model;
  * Poznámka: metody setName() a setPrice() byly odstraněny, protože s v projektu nevyužívají.
  *
  * @author David Poslušný
- * @version ZS2020
+ * @version ZS 2020
  */
 
 public class Food {

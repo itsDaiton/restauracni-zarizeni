@@ -57,7 +57,12 @@ public class OrderController {
      */
     public void confirmOrder() {
         btn_confirmOrder.setOnMouseClicked(event -> {
-            ((Node) (event.getSource())).getScene().getWindow().hide();
+            if(o.getDrinks().isEmpty() && o.getFood().isEmpty()) {
+                AlertWindow.displayAlert("Prázdná objednávka", "Objednávka nesmí být prázdná!");
+            }
+            else {
+                ((Node) (event.getSource())).getScene().getWindow().hide();
+            }
         });
     }
 
