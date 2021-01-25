@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 .*iml
+=======
+*.iml
+>>>>>>> dev
 .idea
 target
